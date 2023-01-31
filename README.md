@@ -6,6 +6,8 @@ This is especially useful when we have a workflow where we need to know what cha
 in on a given branch between two commits, so we can run some tasks on those
 changes.
 
+If the workflow has never been successful, it returns the commit SHA of the first commit in the repo.
+
 Scroll down to the **Background** section below for more info around
 why this would be useful.
 
