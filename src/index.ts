@@ -11,7 +11,7 @@ async function run(): Promise<void> {
       workflow_id: core.getInput("workflow-id"),
       status: "success",
       branch: core.getInput("branch"),
-      event: core.getInput("event") ?? "push",
+      event: core.getInput("event") ?? undefined,
     });
 
     if (workflowRuns.data.total_count === 0) {

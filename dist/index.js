@@ -9649,7 +9649,7 @@ function run() {
                 workflow_id: core.getInput("workflow-id"),
                 status: "success",
                 branch: core.getInput("branch"),
-                event: (_a = core.getInput("event")) !== null && _a !== void 0 ? _a : "push",
+                event: (_a = core.getInput("event")) !== null && _a !== void 0 ? _a : undefined,
             });
             if (workflowRuns.data.total_count === 0) {
                 core.warning("No successful workflow runs found. Defaulting to an early commit.");

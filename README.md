@@ -28,7 +28,7 @@ why this would be useful.
 
 ### `event`
 
-Workflow triggering event type to filter by, such as `release` or `pull_request`. Default is `push`.
+Workflow triggering event type to filter by, such as `push` or `pull_request`. Default is to not filter.
 
 ## Outputs
 
