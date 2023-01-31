@@ -9201,12 +9201,13 @@ function run() {
             if (workflowRuns.data.total_count === 0) {
                 core.warning("No successful workflow runs found");
                 // Get the earliest commit in the repo
+                // TODO: This will only work for fairly new repos
                 const commits = yield octokit.rest.repos.listCommits({
                     owner,
                     repo,
-                    per_page: 1,
                 });
-                return exit(commits.data[0].sha);
+                const lastCommit = commits.data[commits.data.length - 1];
+                return exit(lastCommit.sha);
             }
             const lastSuccessCommitHash = workflowRuns.data.workflow_runs[0].head_sha;
             return exit(lastSuccessCommitHash);
