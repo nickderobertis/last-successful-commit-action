@@ -5,27 +5,35 @@ async function run(): Promise<void> {
   try {
     const octokit = github.getOctokit(core.getInput("github_token"));
     const [owner, repo] = process.env.GITHUB_REPOSITORY.split("/");
-    octokit.actions
-      .listWorkflowRuns({
+    const workflowRuns = await octokit.rest.actions.listWorkflowRuns({
+      owner,
+      repo,
+      workflow_id: core.getInput("workflow_id"),
+      status: "success",
+      branch: core.getInput("branch"),
+      event: core.getInput("event") ?? "push",
+    });
+
+    if (workflowRuns.data.total_count === 0) {
+      core.warning("No successful workflow runs found");
+      // Get the earliest commit in the repo
+      const commits = await octokit.rest.repos.listCommits({
         owner,
         repo,
-        workflow_id: core.getInput("workflow_id"),
-        status: "success",
-        branch: core.getInput("branch"),
-        event: "push",
-      })
-      .then((res) => {
-        const lastSuccessCommitHash =
-          res.data.workflow_runs.length > 0
-            ? res.data.workflow_runs[0].head_commit.id
-            : "";
-        core.setOutput("commit_hash", lastSuccessCommitHash);
-      })
-      .catch((e) => {
-        core.setFailed(e.message);
+        per_page: 1,
       });
+      core.setOutput("commit_hash", commits.data[0].sha);
+      return;
+    }
+
+    const lastSuccessCommitHash = workflowRuns.data.workflow_runs[0].head_sha;
+    core.setOutput("commit_hash", lastSuccessCommitHash);
   } catch (e) {
-    core.setFailed(e.message);
+    if (e instanceof Error) {
+      core.setFailed(e.message);
+    } else {
+      core.setFailed(`Unknown error occurred: ${e}`);
+    }
   }
 }
 

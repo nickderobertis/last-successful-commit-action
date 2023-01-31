@@ -28,6 +28,10 @@ why this would be useful.
 
 **Required** ID or filename of the workflow (e.g. `deploy.yml`).
 
+### `event`
+
+Workflow triggering event type to filter by, such as `release` or `pull_request`. Default is `push`.
+
 ## Outputs
 
 ### `commit_hash`
