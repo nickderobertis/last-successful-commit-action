@@ -3,3 +3,17 @@ description: 'GitHub action for identifying the last successful commit for a giv
 runs:
   using: node16
   main: "dist/index.js"
+inputs:
+  branch:
+    description: 'The branch to check for the last successful commit'
+    required: true
+  workflow-id:
+    description: 'The workflow ID to check for the last successful commit. You can use the filename of the workflow'
+    required: true
+  event:
+    description: 'The event type to check for the last successful commit'
+    required: true
+  github-token:
+    description: 'The GitHub token to use for the API calls'
+    required: true
+    default: ${{ github.token }}
