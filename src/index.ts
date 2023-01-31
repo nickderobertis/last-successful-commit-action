@@ -5,14 +5,19 @@ async function run(): Promise<void> {
   try {
     const octokit = github.getOctokit(core.getInput("github-token"));
     const [owner, repo] = process.env.GITHUB_REPOSITORY.split("/");
-    const workflowRuns = await octokit.rest.actions.listWorkflowRuns({
+    const workflowListInputs = {
       owner,
       repo,
       workflow_id: core.getInput("workflow-id"),
       status: "success",
       branch: core.getInput("branch"),
       event: core.getInput("event") ?? undefined,
-    });
+    } as const;
+    core.debug(`Workflow list inputs: ${JSON.stringify(workflowListInputs)}`);
+    const workflowRuns = await octokit.rest.actions.listWorkflowRuns(
+      workflowListInputs
+    );
+    core.debug(`Workflow runs: ${JSON.stringify(workflowRuns.data)}`);
 
     if (workflowRuns.data.total_count === 0) {
       core.warning(
@@ -24,6 +29,7 @@ async function run(): Promise<void> {
         owner,
         repo,
       });
+      core.debug(`Commits: ${JSON.stringify(commits.data)}`);
       const lastCommit = commits.data[commits.data.length - 1];
       return exit(lastCommit.sha);
     }

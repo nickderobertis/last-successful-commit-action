@@ -9643,14 +9643,17 @@ function run() {
         try {
             const octokit = github.getOctokit(core.getInput("github-token"));
             const [owner, repo] = process.env.GITHUB_REPOSITORY.split("/");
-            const workflowRuns = yield octokit.rest.actions.listWorkflowRuns({
+            const workflowListInputs = {
                 owner,
                 repo,
                 workflow_id: core.getInput("workflow-id"),
                 status: "success",
                 branch: core.getInput("branch"),
                 event: (_a = core.getInput("event")) !== null && _a !== void 0 ? _a : undefined,
-            });
+            };
+            core.debug(`Workflow list inputs: ${JSON.stringify(workflowListInputs)}`);
+            const workflowRuns = yield octokit.rest.actions.listWorkflowRuns(workflowListInputs);
+            core.debug(`Workflow runs: ${JSON.stringify(workflowRuns.data)}`);
             if (workflowRuns.data.total_count === 0) {
                 core.warning("No successful workflow runs found. Defaulting to an early commit.");
                 // Get the earliest commit in the repo
@@ -9659,6 +9662,7 @@ function run() {
                     owner,
                     repo,
                 });
+                core.debug(`Commits: ${JSON.stringify(commits.data)}`);
                 const lastCommit = commits.data[commits.data.length - 1];
                 return exit(lastCommit.sha);
             }
