@@ -11,7 +11,7 @@ async function run(): Promise<void> {
       workflow_id: core.getInput("workflow-id"),
       status: "success",
       branch: core.getInput("branch"),
-      event: core.getInput("event") ?? undefined,
+      event: core.getInput("event") || undefined,
     } as const;
     core.debug(`Workflow list inputs: ${JSON.stringify(workflowListInputs)}`);
     const workflowRuns = await octokit.rest.actions.listWorkflowRuns(

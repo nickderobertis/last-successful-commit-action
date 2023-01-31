@@ -9638,7 +9638,6 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core = __importStar(__nccwpck_require__(2186));
 const github = __importStar(__nccwpck_require__(5438));
 function run() {
-    var _a;
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const octokit = github.getOctokit(core.getInput("github-token"));
@@ -9649,7 +9648,7 @@ function run() {
                 workflow_id: core.getInput("workflow-id"),
                 status: "success",
                 branch: core.getInput("branch"),
-                event: (_a = core.getInput("event")) !== null && _a !== void 0 ? _a : undefined,
+                event: core.getInput("event") || undefined,
             };
             core.debug(`Workflow list inputs: ${JSON.stringify(workflowListInputs)}`);
             const workflowRuns = yield octokit.rest.actions.listWorkflowRuns(workflowListInputs);
