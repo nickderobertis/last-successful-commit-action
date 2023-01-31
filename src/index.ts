@@ -22,12 +22,11 @@ async function run(): Promise<void> {
         repo,
         per_page: 1,
       });
-      core.setOutput("commit-sha", commits.data[0].sha);
-      return;
+      return exit(commits.data[0].sha);
     }
 
     const lastSuccessCommitHash = workflowRuns.data.workflow_runs[0].head_sha;
-    core.setOutput("commit-sha", lastSuccessCommitHash);
+    return exit(lastSuccessCommitHash);
   } catch (e) {
     if (e instanceof Error) {
       core.setFailed(e.message);
@@ -39,6 +38,7 @@ async function run(): Promise<void> {
 
 function exit(commitSha: string): void {
   core.setOutput("commit-sha", commitSha);
+  core.info(`Commit SHA: ${commitSha}`);
   process.exit(0);
 }
 
