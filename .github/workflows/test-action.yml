@@ -11,9 +11,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Test Action
+        id: run-action
         uses: ./ # Uses an action in the root directory
         with:
           branch: main
           workflow-id: test-action.yml
           event: release
           github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Test Action Output
+        run: echo Commit SHA is ${{ steps.run-action.outputs.commit-sha }}
