@@ -10,7 +10,7 @@ async function run(): Promise<void> {
       repo,
       workflow_id: core.getInput("workflow-id"),
       status: "success",
-      branch: core.getInput("branch"),
+      branch: core.getInput("branch") || undefined,
       event: core.getInput("event") || undefined,
     } as const;
     core.debug(`Workflow list inputs: ${JSON.stringify(workflowListInputs)}`);

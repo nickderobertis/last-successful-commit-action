@@ -13,11 +13,6 @@ why this would be useful.
 
 ## Inputs
 
-### `branch`
-
-**Required** Branch to get last successful commit from.
-**Default**: `main`
-
 ### `github-token`
 
 **Required** Your GitHub access token (see Usage below).
@@ -25,6 +20,11 @@ why this would be useful.
 ### `workflow-id`
 
 **Required** ID or filename of the workflow (e.g. `deploy.yml`).
+
+### `branch`
+
+Branch to get last successful commit from. Defaults to not
+filtering by branch.
 
 ### `event`
 

@@ -4,12 +4,12 @@ runs:
   using: node16
   main: "dist/index.js"
 inputs:
-  branch:
-    description: 'The branch to check for the last successful commit'
-    required: true
   workflow-id:
     description: 'The workflow ID to check for the last successful commit. You can use the filename of the workflow'
     required: true
+  branch:
+    description: 'The branch to check for the last successful commit'
+    required: false
   event:
     description: 'The event type to check for the last successful commit'
     required: false

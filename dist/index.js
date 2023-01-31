@@ -9647,7 +9647,7 @@ function run() {
                 repo,
                 workflow_id: core.getInput("workflow-id"),
                 status: "success",
-                branch: core.getInput("branch"),
+                branch: core.getInput("branch") || undefined,
                 event: core.getInput("event") || undefined,
             };
             core.debug(`Workflow list inputs: ${JSON.stringify(workflowListInputs)}`);

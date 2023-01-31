@@ -14,7 +14,6 @@ jobs:
         id: run-action
         uses: ./ # Uses an action in the root directory
         with:
-          branch: main
           workflow-id: test-action.yml
           github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Test Action Output
@@ -22,7 +21,7 @@ jobs:
 
   run_action_event:
     runs-on: ubuntu-latest
-    name: With event test
+    name: With all filters test
     steps:
       # To use this repository's action,
       # you must check out the repository
