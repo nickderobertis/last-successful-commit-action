@@ -3,4 +3,3 @@ description: 'GitHub action for identifying the last successful commit for a giv
 runs:
   using: node16
   main: "dist/index.js"
-  

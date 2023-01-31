@@ -1,9 +1,5 @@
 # "Last successful commit" Github Action
 
-GitHub action for identifying the last successful commit for a given workflow and branch
-
-# "Last successful commit" action
-
 This action returns the commit hash when a given workflow was last successful.
 
 This is especially useful when we have a workflow where we need to know what changed
@@ -51,13 +47,13 @@ jobs:
     runs-on: ubuntu-latest
     name: Deploying affected apps
     steps:
-      - uses: actions/checkout@v1
-      - uses: bahmutov/npm-install@v1.4.5
-      - uses: nrwl/last-successful-commit-action@v1
+      - uses: actions/checkout@v3
+      - uses: nickderobertis/last-successful-commit-action@v1
         id: last_successful_commit
         with:
-          branch: "master"
+          branch: main
           workflow_id: "deploy.yml"
+          event: release
           github_token: ${{ secrets.GITHUB_TOKEN }}
       - run: npm run nx affected -- --target=build --base=${{ steps.last_successful_commit.outputs.commit_hash }} --parallel --configuration=production
 ```
