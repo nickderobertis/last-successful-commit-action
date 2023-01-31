@@ -1,0 +1,6 @@
+name: '"Last successful commit" Github Action'
+description: 'GitHub action for identifying the last successful commit for a given workflow and branch'
+runs:
+  using: node16
+  main: "dist/index.js"
+  

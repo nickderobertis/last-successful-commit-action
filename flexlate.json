@@ -14,7 +14,16 @@
   "applied_templates": [
     {
       "name": "copier-github-actions-semantic-release",
-      "data": {},
+      "data": {
+        "repo_name": "last-successful-commit-action",
+        "full_name": "\"Last successful commit\" Github Action",
+        "action_type": "typescript",
+        "repo_username": "nickderobertis",
+        "short_description": "GitHub action for identifying the last successful commit for a given workflow and branch",
+        "package_author": "Nick DeRobertis",
+        "author_email": "derobertis.nick@gmail.com",
+        "main_branch_name": "main"
+      },
       "version": "89e81330c5b5933ae9d380969b35766b9b1036a8",
       "add_mode": "local",
       "root": "."
