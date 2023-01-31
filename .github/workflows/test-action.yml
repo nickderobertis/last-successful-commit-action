@@ -16,7 +16,7 @@ jobs:
         with:
           branch: main
           workflow-id: test-action.yml
-          event: release
+          event: push
           github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Test Action Output
         run: echo Commit SHA is ${{ steps.run-action.outputs.commit-sha }}
