@@ -12,3 +12,8 @@ jobs:
         uses: actions/checkout@v3
       - name: Test Action
         uses: ./ # Uses an action in the root directory
+        with:
+          branch: main
+          workflow_id: test-action.yml
+          event: release
+          github_token: ${{ secrets.GITHUB_TOKEN }}

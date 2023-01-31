@@ -52,7 +52,7 @@ jobs:
         id: last_successful_commit
         with:
           branch: main
-          workflow_id: "deploy.yml"
+          workflow_id: deploy.yml
           event: release
           github_token: ${{ secrets.GITHUB_TOKEN }}
       - run: npm run nx affected -- --target=build --base=${{ steps.last_successful_commit.outputs.commit_hash }} --parallel --configuration=production
