@@ -14,6 +14,6 @@ jobs:
         uses: ./ # Uses an action in the root directory
         with:
           branch: main
-          workflow_id: test-action.yml
+          workflow-id: test-action.yml
           event: release
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}

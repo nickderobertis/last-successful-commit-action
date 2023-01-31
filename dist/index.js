@@ -9188,12 +9188,12 @@ function run() {
     var _a;
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const octokit = github.getOctokit(core.getInput("github_token"));
+            const octokit = github.getOctokit(core.getInput("github-token"));
             const [owner, repo] = process.env.GITHUB_REPOSITORY.split("/");
             const workflowRuns = yield octokit.rest.actions.listWorkflowRuns({
                 owner,
                 repo,
-                workflow_id: core.getInput("workflow_id"),
+                workflow_id: core.getInput("workflow-id"),
                 status: "success",
                 branch: core.getInput("branch"),
                 event: (_a = core.getInput("event")) !== null && _a !== void 0 ? _a : "push",
@@ -9206,11 +9206,11 @@ function run() {
                     repo,
                     per_page: 1,
                 });
-                core.setOutput("commit_hash", commits.data[0].sha);
+                core.setOutput("commit-sha", commits.data[0].sha);
                 return;
             }
             const lastSuccessCommitHash = workflowRuns.data.workflow_runs[0].head_sha;
-            core.setOutput("commit_hash", lastSuccessCommitHash);
+            core.setOutput("commit-sha", lastSuccessCommitHash);
         }
         catch (e) {
             if (e instanceof Error) {
@@ -9221,6 +9221,10 @@ function run() {
             }
         }
     });
+}
+function exit(commitSha) {
+    core.setOutput("commit-sha", commitSha);
+    process.exit(0);
 }
 run();
 

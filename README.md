@@ -1,6 +1,6 @@
 # "Last successful commit" Github Action
 
-This action returns the commit hash when a given workflow was last successful.
+This action returns the commit SHA when a given workflow was last successful.
 
 This is especially useful when we have a workflow where we need to know what changed
 in on a given branch between two commits, so we can run some tasks on those
@@ -16,11 +16,11 @@ why this would be useful.
 **Required** Branch to get last successful commit from.
 **Default**: `main`
 
-### `github_token`
+### `github-token`
 
 **Required** Your GitHub access token (see Usage below).
 
-### `workflow_id`
+### `workflow-id`
 
 **Required** ID or filename of the workflow (e.g. `deploy.yml`).
 
@@ -30,9 +30,9 @@ Workflow triggering event type to filter by, such as `release` or `pull_request`
 
 ## Outputs
 
-### `commit_hash`
+### `commit-sha`
 
-Hash of the last successful commit.
+SHA of the last successful commit.
 
 ## Example usage
 
@@ -52,10 +52,10 @@ jobs:
         id: last_successful_commit
         with:
           branch: main
-          workflow_id: deploy.yml
+          workflow-id: deploy.yml
           event: release
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-      - run: npm run nx affected -- --target=build --base=${{ steps.last_successful_commit.outputs.commit_hash }} --parallel --configuration=production
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - run: npm run nx affected -- --target=build --base=${{ steps.last_successful_commit.outputs.commit-sha }} --parallel --configuration=production
 ```
 
 # Background
