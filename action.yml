@@ -12,7 +12,7 @@ inputs:
     required: true
   event:
     description: 'The event type to check for the last successful commit'
-    required: true
+    required: false
   github-token:
     description: 'The GitHub token to use for the API calls'
     required: true
