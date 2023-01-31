@@ -15,7 +15,9 @@ async function run(): Promise<void> {
     });
 
     if (workflowRuns.data.total_count === 0) {
-      core.warning("No successful workflow runs found");
+      core.warning(
+        "No successful workflow runs found. Defaulting to an early commit."
+      );
       // Get the earliest commit in the repo
       // TODO: This will only work for fairly new repos
       const commits = await octokit.rest.repos.listCommits({
